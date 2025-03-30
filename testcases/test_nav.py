@@ -2,19 +2,13 @@ import pytest
 from jd_automation.pages.HomePage import HomePage
 
 
-class TestHomePage:
+class TestNav:
 
     # 测试前置操作
     @pytest.fixture(autouse=True)
     def setup(self,browser):
         self.home_page = HomePage(browser)
         self.home_page.get_url()
-
-    # 测试页面加载时间
-    def test_load_time(self):
-        time = self.home_page.get_load_time()
-        print(f"页面的加载时间为{time}秒")
-        assert time<5,"首页加载时间过长"
 
     # 测试导航栏数量
     def test_nav_number(self):

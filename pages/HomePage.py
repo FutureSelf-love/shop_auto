@@ -15,6 +15,7 @@ class HomePage(BasePage):
     def __init__(self,driver):
         super().__init__(driver)
         self.url = "https://www.jd.com/"
+        self.wait = WebDriverWait(driver,10)
 
     # 导航栏分类链接
     nav_link = (By.CSS_SELECTOR,".cate_menu li")
@@ -22,6 +23,11 @@ class HomePage(BasePage):
     serach_input = (By.ID,"key")
     # 搜索按钮
     search_button = (By.CSS_SELECTOR, ".button")
+    # 轮播图元素
+    carousel = (By.ID, "J_focus")
+    carousel_items = (By.CSS_SELECTOR, ".slider_list .slider_item")
+    carousel_dots = (By.CSS_SELECTOR, ".slider_indicators .slider_indicators_btn ")
+
 
     # 打开京东首页
     def get_url(self):
@@ -47,7 +53,27 @@ class HomePage(BasePage):
         else:
             raise IndexError("导航栏索引超出范围")
 
+    # 获取轮播图数量
+    def get_carousel_item_account(self):
+        items = self.wait.until(EC.presence_of_all_elements_located(self.carousel_items))
+        num=len(items)
+        print(f"轮播图的数量为:{num}")
+        return len(items)
 
+    # 点击指定位置的指示点
+    def click_dot(self,index):
+        self.close_popups()
+        dots = self.wait.until(EC.presence_of_all_elements_located(self.carousel_dots))
+        if index < len(dots):
+            dots[index].click()
+
+    # 获取当前激活的轮播图索引
+    def get_cative_item_index(self):
+        items =self.wait.until(EC.presence_of_all_elements_located(self.carousel_items))
+        for i,item in enumerate(items):
+            if "slider_active" in item.get_attribute("class"):
+                return i
+        return -1
 
 
 
