@@ -1,14 +1,10 @@
-import time
-
-from selenium.common import TimeoutException, NoSuchElementException
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from jd_automation.pages.BasePage import BasePage
 
 
+# Home页面类
 class HomePage(BasePage):
 
     # 初始化实例对象
@@ -20,14 +16,18 @@ class HomePage(BasePage):
     # 导航栏分类链接
     nav_link = (By.CSS_SELECTOR,".cate_menu li")
     # 搜索框
-    serach_input = (By.ID,"key")
+    search_input = (By.ID,"key")
     # 搜索按钮
     search_button = (By.CSS_SELECTOR, ".button")
     # 轮播图元素
     carousel = (By.ID, "J_focus")
     carousel_items = (By.CSS_SELECTOR, ".slider_list .slider_item")
     carousel_dots = (By.CSS_SELECTOR, ".slider_indicators .slider_indicators_btn ")
-
+    # 登录元素
+    login_button = (By.CSS_SELECTOR, ".link-login")
+    login_name = (By.ID, "loginname")
+    login_pwd = (By.ID, "nloginpwd")
+    login_submit = (By.ID, "loginsubmit")
 
     # 打开京东首页
     def get_url(self):
@@ -75,7 +75,15 @@ class HomePage(BasePage):
                 return i
         return -1
 
-
+    # 执行商品搜索
+    def search_product(self,product_name):
+        self.close_popups()
+        self.search_input = self.input_text(self.search_input,product_name)
+        # search_btn = self.find_element(self.search_button)
+        # print(f"搜索button为{search_btn}")
+        # ActionChains(self.driver).move_to_element(search_btn).pause(1).click().perform()
+        # self.click(self.search_button)
+        print("点击后的URL:", self.driver.current_url)
 
 
 

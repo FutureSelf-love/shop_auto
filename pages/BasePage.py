@@ -1,9 +1,11 @@
+from selenium.webdriver import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 # 封装通用方法
 class BasePage:
 
+    # 初始化实例对象
     def __init__(self,driver):
         self.driver = driver
 
@@ -47,3 +49,11 @@ class BasePage:
     # 获取页面标题
     def get_title(self):
         return self.driver.title
+
+    # 输入文本
+    def input_text(self,locator,text):
+        elem = self.find_element(locator)
+        print(f"输入框为：{elem}")
+        elem.clear()
+        elem.send_keys(text+Keys.ENTER)
+

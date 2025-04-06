@@ -4,24 +4,23 @@ import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from jd_automation.pages.HomePage import HomePage
 
-
+# 轮播图测试用例
 class TestCarousel:
+
+    # 测试前置操作
     @pytest.fixture(autouse=True)
     def setup(self, browser):
         self.home_page = HomePage(browser)
         self.home_page.get_url()
 
-
     # 测试轮播图是否存在
     def test_carousel_items_count(self):
         assert self.home_page.wait.until(EC.presence_of_all_elements_located(self.home_page.carousel)), "轮播图未找到"
-
 
     # 测试轮播图数量
     def test_carousel_num(self):
         num = self.home_page.get_carousel_item_account()
         assert num>0,"轮播图数量为0"
-
 
      # 测试指示点导航功能
     @pytest.mark.parametrize("dot_index",[0,1,2,3,4,5])

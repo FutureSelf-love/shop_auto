@@ -1,7 +1,7 @@
 import pytest
 from jd_automation.pages.HomePage import HomePage
 
-
+# 首页加载测试用例
 class TestIndexLoadTime:
 
     # 测试前置操作

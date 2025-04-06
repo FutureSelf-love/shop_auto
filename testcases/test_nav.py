@@ -1,7 +1,7 @@
 import pytest
 from jd_automation.pages.HomePage import HomePage
 
-
+# 导航测试用例
 class TestNav:
 
     # 测试前置操作
